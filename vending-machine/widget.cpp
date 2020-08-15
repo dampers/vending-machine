@@ -18,10 +18,8 @@ Widget::~Widget()
     delete ui;
 }
 
-void Widget::changeMoney(int diff)
+void Widget::buyEnableCheck()
 {
-    money += diff;
-    ui->lcdNumber->display(money);
     if(money>=100) ui->pbCoffee->setEnabled(true);
     else ui->pbCoffee->setEnabled(false);
     if(money>=150) ui->pbTea->setEnabled(true);
@@ -30,7 +28,14 @@ void Widget::changeMoney(int diff)
     else ui->pbMilk->setEnabled(false);
 }
 
-std::string Widget:: calChange(int coin)
+void Widget::changeMoney(int diff)
+{
+    money += diff;
+    ui->lcdNumber->display(money);
+    buyEnableCheck();
+}
+
+std::string Widget::calChange(int coin)
 {
     int coins = 0;
     if(money>=coin)

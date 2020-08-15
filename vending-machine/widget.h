@@ -17,6 +17,7 @@ public:
     int money {0};
     void changeMoney(int diff);
     std::string calChange(int coin);
+    void buyEnableCheck();
 
 private slots:
     void on_pb10_clicked();
