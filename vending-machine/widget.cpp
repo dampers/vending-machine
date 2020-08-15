@@ -26,7 +26,7 @@ void Widget::changeMoney(int diff)
     else ui->pbCoffee->setEnabled(false);
     if(money>=150) ui->pbTea->setEnabled(true);
     else ui->pbTea->setEnabled(false);
-    if(money>=150) ui->pbMilk->setEnabled(true);
+    if(money>=200) ui->pbMilk->setEnabled(true);
     else ui->pbMilk->setEnabled(false);
 }
 
@@ -71,33 +71,30 @@ void Widget::on_pbReset_clicked()
     std::string change = "";
     change += "Thank you\n\n";
     int c500 = 0, c100 = 0, c50 = 0, c10 = 0;
-    if(money)
+    if(money>=500)
     {
-        while(money>=500)
-        {
-            c500++;
-            money -= 500;
-        }
-        change += "500 coins = " + std::to_string(c500) + "\n";
-        while(money>=100)
-        {
-            c100++;
-            money -= 100;
-        }
-        change += "100 coins = " + std::to_string(c100) + "\n";
-        while(money>=50)
-        {
-            c50++;
-            money -= 50;
-        }
-        change += "50 coins = " + std::to_string(c50) + "\n";
-        while(money>=10)
-        {
-            c10++;
-            money -= 10;
-        }
-        change += "10 coins = " + std::to_string(c10) + "\n";
+        c500 += money/500;
+        money %= 500;
     }
+    change += "500 coins = " + std::to_string(c500) + "\n";
+    if(money>=100)
+    {
+        c100 += money/100;
+        money %= 100;
+    }
+    change += "100 coins = " + std::to_string(c100) + "\n";
+    if(money>=50)
+    {
+        c50 += money/50;
+        money %= 50;
+    }
+    change += "50 coins = " + std::to_string(c50) + "\n";
+    if(money>=10)
+    {
+        c10 += money/10;
+        money %= 10;
+    }
+    change += "10 coins = " + std::to_string(c10) + "\n";
     m.information(nullptr, "information", change.c_str());
     changeMoney(0);
 }
