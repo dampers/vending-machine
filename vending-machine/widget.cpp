@@ -30,6 +30,18 @@ void Widget::changeMoney(int diff)
     else ui->pbMilk->setEnabled(false);
 }
 
+std::string Widget:: calChange(int coin)
+{
+    int coins = 0;
+    if(money>=coin)
+    {
+        coins += money/coin;
+        money %= coin;
+    }
+    return std::to_string(coin) + "coins = " + std::to_string(coins) + "\n";
+
+}
+
 void Widget::on_pb10_clicked()
 {
     changeMoney(10);
@@ -70,31 +82,10 @@ void Widget::on_pbReset_clicked()
     QMessageBox m;
     std::string change = "";
     change += "Thank you\n\n";
-    int c500 = 0, c100 = 0, c50 = 0, c10 = 0;
-    if(money>=500)
-    {
-        c500 += money/500;
-        money %= 500;
-    }
-    change += "500 coins = " + std::to_string(c500) + "\n";
-    if(money>=100)
-    {
-        c100 += money/100;
-        money %= 100;
-    }
-    change += "100 coins = " + std::to_string(c100) + "\n";
-    if(money>=50)
-    {
-        c50 += money/50;
-        money %= 50;
-    }
-    change += "50 coins = " + std::to_string(c50) + "\n";
-    if(money>=10)
-    {
-        c10 += money/10;
-        money %= 10;
-    }
-    change += "10 coins = " + std::to_string(c10) + "\n";
+    change += calChange(500);
+    change += calChange(100);
+    change += calChange(50);
+    change += calChange(10);
     m.information(nullptr, "information", change.c_str());
     changeMoney(0);
 }
